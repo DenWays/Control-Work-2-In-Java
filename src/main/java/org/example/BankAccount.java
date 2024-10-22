@@ -33,6 +33,8 @@ public class BankAccount {
     public void withdraw(double amount) {
         if (amount > balance)
             throw new IllegalArgumentException("Недостаточно средств");
+        if (amount < 0)
+            throw new IllegalArgumentException("Введено отрицательное значение");
         balance -= amount;
     }
 
@@ -54,6 +56,8 @@ class CardAccount extends BankAccount {
     public void withdraw(double amount) {
         if (amount > super.getBalance())
             throw new IllegalArgumentException("Недостаточно средств");
+        if (amount < 0)
+            throw new IllegalArgumentException("Введено отрицательное значение");
         amount = amount + amount * 0.01;
         super.setBalance(super.getBalance() - amount);
     }
@@ -67,6 +71,8 @@ class DepositAccount extends BankAccount {
 
     @Override
     public void deposit(double amount) {
+        if (amount < 0)
+            throw new IllegalArgumentException("Введено отрицательное значение");
         super.deposit(amount);
         lastIncome = LocalDate.now();
     }
@@ -75,6 +81,8 @@ class DepositAccount extends BankAccount {
     public void withdraw(double amount) {
         if (amount > super.getBalance())
             throw new IllegalArgumentException("Недостаточно средств");
+        if (amount < 0)
+            throw new IllegalArgumentException("Введено отрицательное значение");
         if (lastIncome.plusDays(30).getDayOfMonth() <= LocalDate.now().getDayOfMonth()) {
             super.setBalance(amount);
         }
