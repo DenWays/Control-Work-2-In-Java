@@ -11,6 +11,9 @@ public class Worker {
 
     public Worker(String name, int age) {
         this.name = name;
+        if (age < 18) {
+            throw new IllegalArgumentException("Недопустимый возраст");
+        }
         this.age = age;
     }
 
@@ -27,6 +30,9 @@ public class Worker {
     }
 
     public void setAge(int age) {
+        if (age < 18) {
+            throw new IllegalArgumentException("Недопустимый возраст");
+        }
         this.age = age;
     }
 
@@ -35,10 +41,9 @@ public class Worker {
     }
 
     public String toString() {
-        return "Worker{" +
+        return "Worker" +
                 "Имя='" + name + '\'' +
-                ", возраст=" + age +
-                '}';
+                ", Возраст=" + age;
     }
 }
 
@@ -48,6 +53,9 @@ class WorkerHour extends Worker{
 
     public WorkerHour(String name, int age, int hour, int salaryInHour) {
         super(name, age);
+        if (hour < 0 || hour > 24 || salaryInHour < 0) {
+            throw new IllegalArgumentException("Недопустимый рабочий день или зарплата");
+        }
         this.hour = hour;
         this.salaryInHour = salaryInHour;
     }
